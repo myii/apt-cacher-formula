@@ -198,7 +198,9 @@ suites:
       state_top:
         base:
           '*':
+            - apt-cacher.ng.yaml_dump
             - apt-cacher.ng.server
+            - apt-cacher.ng.client
       pillars:
         top.sls:
           base:
