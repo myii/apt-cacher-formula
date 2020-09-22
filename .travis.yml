@@ -55,18 +55,33 @@ jobs:
                    @commitlint/travis-cli
         - commitlint-travis
 
+    # Run `pre-commit` linters in a single job
+    - language: 'node_js'
+      node_js: 'lts/*'
+      env: 'Lint_pre-commit'
+      name: 'Lint: pre-commit'
+      before_install: 'skip'
+      cache:
+        directories:
+          - $HOME/.cache/pre-commit
+      script:
+        # Install and run `pre-commit`
+        - pip install pre-commit
+        - pre-commit run --all-files --verbose
+        - pre-commit run --hook-stage manual --verbose commitlint-travis
+
     ## Define the rest of the matrix based on Kitchen testing
     # Make sure the instances listed below match up with
     # the `platforms` defined in `kitchen.yml`
-    - env: INSTANCE=default-debian-10-master-py3
-    - env: INSTANCE=default-ubuntu-1804-master-py3
+    # - env: INSTANCE=default-debian-10-master-py3
+    # - env: INSTANCE=default-ubuntu-1804-master-py3
     # - env: INSTANCE=default-centos-8-master-py3
     # - env: INSTANCE=default-fedora-31-master-py3
     # - env: INSTANCE=default-opensuse-leap-151-master-py3
     # - env: INSTANCE=default-amazonlinux-2-master-py3
     # - env: INSTANCE=default-debian-10-2019-2-py3
-    - env: INSTANCE=default-debian-9-2019-2-py3
-    - env: INSTANCE=default-ubuntu-1804-2019-2-py3
+    # - env: INSTANCE=default-debian-9-2019-2-py3
+    # - env: INSTANCE=default-ubuntu-1804-2019-2-py3
     # - env: INSTANCE=default-centos-8-2019-2-py3
     # - env: INSTANCE=default-fedora-31-2019-2-py3
     # - env: INSTANCE=default-opensuse-leap-151-2019-2-py3
@@ -74,14 +89,14 @@ jobs:
     # - env: INSTANCE=default-amazonlinux-2-2019-2-py3
     # - env: INSTANCE=default-arch-base-latest-2019-2-py2
     # - env: INSTANCE=default-fedora-30-2018-3-py3
-    - env: INSTANCE=default-debian-9-2018-3-py2
+    # - env: INSTANCE=default-debian-9-2018-3-py2
     # - env: INSTANCE=default-ubuntu-1604-2018-3-py2
     # - env: INSTANCE=default-centos-7-2018-3-py2
     # - env: INSTANCE=default-opensuse-leap-151-2018-3-py2
     # - env: INSTANCE=default-amazonlinux-1-2018-3-py2
     # - env: INSTANCE=default-arch-base-latest-2018-3-py2
     # - env: INSTANCE=default-debian-8-2017-7-py2
-    - env: INSTANCE=default-ubuntu-1604-2017-7-py2
+    # - env: INSTANCE=default-ubuntu-1604-2017-7-py2
     # - env: INSTANCE=default-centos-6-2017-7-py2
     # - env: INSTANCE=default-fedora-30-2017-7-py2
     # - env: INSTANCE=default-opensuse-leap-151-2017-7-py2
